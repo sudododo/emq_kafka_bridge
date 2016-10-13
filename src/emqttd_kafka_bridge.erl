@@ -29,9 +29,9 @@
 %%% @end
 %%%-----------------------------------------------------------------------------
 
--include("emqttd/include/emqttd_protocol.hrl").
+-include_lib("emqttd/include/emqttd_protocol.hrl").
 
--include("emqttd/include/emqttd_internal.hrl").
+-include_lib("emqttd/include/emqttd_internal.hrl").
 
 -export([load/1, unload/0]).
 
