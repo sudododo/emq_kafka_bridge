@@ -163,7 +163,7 @@ on_message_publish(Message, _Env) ->
     io:format("publish ~s~n", [emqttd_message:format(Message)]),   
 
     From = Message#mqtt_message.from,
-    Sender =  Message#mqtt_message.sender,
+    %%Sender =  Message#mqtt_message.sender,
     Topic = Message#mqtt_message.topic,
     Payload = Message#mqtt_message.payload, 
     QoS = Message#mqtt_message.qos,
@@ -188,7 +188,7 @@ on_message_delivered(ClientId, Message, _Env) ->
     io:format("delivered to client ~s: ~s~n", [ClientId, emqttd_message:format(Message)]),
 
     From = Message#mqtt_message.from,
-    Sender =  Message#mqtt_message.sender,
+    %% Sender =  Message#mqtt_message.sender,
     Topic = Message#mqtt_message.topic,
     Payload = Message#mqtt_message.payload, 
     QoS = Message#mqtt_message.qos,
@@ -215,7 +215,7 @@ on_message_acked(ClientId, Message, _Env) ->
     io:format("client ~s acked: ~s~n", [ClientId, emqttd_message:format(Message)]),   
 
     From = Message#mqtt_message.from,
-    Sender =  Message#mqtt_message.sender,
+    %% Sender =  Message#mqtt_message.sender,
     Topic = Message#mqtt_message.topic,
     Payload = Message#mqtt_message.payload, 
     QoS = Message#mqtt_message.qos,
