@@ -241,7 +241,7 @@ on_message_acked(ClientId, Message, _Env) ->
 
 ekaf_init(_Env) ->
     %% Get parameters
-    {ok, Kafka} = application:get_env(emqttd_plugin_kafka_bridge, kafka),
+    {ok, Kafka} = application:get_env(emqttd_kafka_bridge, kafka),
     BootstrapBroker = proplists:get_value(bootstrap_broker, Kafka),
     PartitionStrategy= proplists:get_value(partition_strategy, Kafka),
     %% Set partition strategy, like application:set_env(ekaf, ekaf_partition_strategy, strict_round_robin),
