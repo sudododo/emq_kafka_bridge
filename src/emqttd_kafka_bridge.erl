@@ -258,7 +258,8 @@ ekaf_init(_Env) ->
     {ok, _} = application:ensure_all_started(ranch),
     {ok, _} = application:ensure_all_started(ekaf),
 
-    io:format("Init ekaf with ~p~n", [BootstrapBroker]).
+    %% io:format("Init ekaf with ~p~n", [BootstrapBroker]).
+    io:format("Init ekaf with ~p~n", [{"127.0.0.1", 9092}]).
 
 
 %% Called when the plugin application stop
