@@ -248,18 +248,16 @@ ekaf_init(_Env) ->
     application:set_env(ekaf, ekaf_partition_strategy, strict_round_robin),
     %% application:set_env(ekaf, ekaf_partition_strategy, PartitionStrategy),
     %% Set broker url and port, like 
-    application:set_env(ekaf, ekaf_bootstrap_broker, {"127.0.0.1", 9092}),
-    %% application:set_env(ekaf, ekaf_bootstrap_broker, BootstrapBroker),
+    application:set_env(ekaf, ekaf_bootstrap_broker, BootstrapBroker),
     %% Set topic
     application:set_env(ekaf, ekaf_bootstrap_topics, <<"broker_message">>),
 
-    {ok, _} = application:ensure_all_started(kafkamocker),
-    {ok, _} = application:ensure_all_started(gproc),
-    {ok, _} = application:ensure_all_started(ranch),
+    %% {ok, _} = application:ensure_all_started(kafkamocker),
+    %% {ok, _} = application:ensure_all_started(gproc),
+    %% {ok, _} = application:ensure_all_started(ranch),
     {ok, _} = application:ensure_all_started(ekaf),
 
-    %% io:format("Init ekaf with ~p~n", [BootstrapBroker]).
-    io:format("Init ekaf with ~p~n", [{"127.0.0.1", 9092}]).
+    io:format("Init ekaf with ~p~n", [BootstrapBroker]).
 
 
 %% Called when the plugin application stop
