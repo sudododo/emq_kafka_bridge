@@ -241,13 +241,15 @@ on_message_acked(ClientId, Message, _Env) ->
 
 ekaf_init(_Env) ->
     %% Get parameters
-    {ok, Kafka} = application:get_env(emqttd_kafka_bridge, kafka),
-    BootstrapBroker = proplists:get_value(bootstrap_broker, Kafka),
-    PartitionStrategy= proplists:get_value(partition_strategy, Kafka),
-    %% Set partition strategy, like application:set_env(ekaf, ekaf_partition_strategy, strict_round_robin),
-    application:set_env(ekaf, ekaf_partition_strategy, PartitionStrategy),
+    %%{ok, Kafka} = application:get_env(emqttd_kafka_bridge, kafka),
+    %%BootstrapBroker = proplists:get_value(bootstrap_broker, Kafka),
+    %%PartitionStrategy= proplists:get_value(partition_strategy, Kafka),
+    %% Set partition strategy, like 
+    application:set_env(ekaf, ekaf_partition_strategy, strict_round_robin),
+    %%application:set_env(ekaf, ekaf_partition_strategy, PartitionStrategy),
     %% Set broker url and port, like 
-    application:set_env(ekaf, ekaf_bootstrap_broker, BootstrapBroker),
+    application:set_env(ekaf, ekaf_bootstrap_broker, {"127.0.0.1", 9092}),
+    %% application:set_env(ekaf, ekaf_bootstrap_broker, BootstrapBroker),
     %% Set topic
     application:set_env(ekaf, ekaf_bootstrap_topics, <<"broker_message">>),
 
