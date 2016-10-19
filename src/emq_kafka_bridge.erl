@@ -117,10 +117,14 @@ on_message_publish(Message, _Env) ->
     io:format("publish ~s~n", [emqttd_message:format(Message)]),
 	
     From = Message#mqtt_message.from,
+    io:format("From ~s~n", [From]),
     %%Sender =  Message#mqtt_message.sender,
     Topic = Message#mqtt_message.topic,
-    Payload = Message#mqtt_message.payload, 
+    io:format("Topic ~s~n", [Topic]),
+    Payload = Message#mqtt_message.payload,
+    io:format("Payload ~s~n", [Payload]), 
     QoS = Message#mqtt_message.qos,
+    io:format("QoS ~s~n", [QoS]),
     %% Timestamp = Message#mqtt_message.timestamp,
 
     Json = mochijson2:encode([
