@@ -1,4 +1,4 @@
-fka_bridge).
+-module(emq_kafka_bridge).
 
 -include_lib("emqttd/include/emqttd.hrl").
 
