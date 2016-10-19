@@ -1,4 +1,4 @@
--module(emqttd_auth_kafka_bridge).
+-module(emq_auth_kafka_bridge).
 
 -behaviour(emqttd_auth_mod).
 

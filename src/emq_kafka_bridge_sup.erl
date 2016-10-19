@@ -1,4 +1,4 @@
--module(emqttd_kafka_bridge_sup).
+-module(emq_kafka_bridge_sup).
 
 -behaviour(supervisor).
 
