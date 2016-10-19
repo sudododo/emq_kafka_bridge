@@ -1,5 +1,4 @@
-
--module(emq_kafka_bridge).
+fka_bridge).
 
 -include_lib("emqttd/include/emqttd.hrl").
 
@@ -79,6 +78,17 @@ on_session_created(ClientId, Username, _Env) ->
 
 on_session_subscribed(ClientId, Username, {Topic, Opts}, _Env) ->
     io:format("session(~s/~s) subscribed: ~p~n", [Username, ClientId, {Topic, Opts}]),
+
+	Json = mochijson2:encode([
+        {type, <<"subscribed">>},
+        {client_id, ClientId},
+        {topic, Topic},
+        {cluster_node, node()},
+        {ts, emqttd_time:now_to_secs()}
+    ]),
+    
+    ekaf:produce_async_batched(<<"broker_message">>, list_to_binary(Json)),
+
     {ok, {Topic, Opts}}.
 
 on_session_unsubscribed(ClientId, Username, {Topic, Opts}, _Env) ->
@@ -120,7 +130,7 @@ on_message_publish(Message, _Env) ->
         {payload, Payload},
         {qos, QoS},
         {cluster_node, node()},
-        {ts, emqttd_time:now_to_secs(Timestamp)}
+        {ts, Timestamp}
     ]),
 
     ekaf:produce_async_batched(<<"broker_message">>, list_to_binary(Json)),
