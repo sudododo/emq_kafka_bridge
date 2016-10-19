@@ -87,7 +87,7 @@ on_session_unsubscribed(ClientId, Username, {Topic, Opts}, _Env) ->
 	Json = mochijson2:encode([
         {type, <<"unsubscribed">>},
         {client_id, ClientId},
-        {topic, lists:last(Topics)},
+        {topic, Topic},
         {cluster_node, node()},
         {ts, emqttd_time:now_to_secs()}
     ]),
