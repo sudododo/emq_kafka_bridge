@@ -121,7 +121,7 @@ on_message_publish(Message, _Env) ->
     Topic = Message#mqtt_message.topic,
     Payload = Message#mqtt_message.payload, 
     QoS = Message#mqtt_message.qos,
-    Timestamp = Message#mqtt_message.timestamp,
+    %% Timestamp = Message#mqtt_message.timestamp,
 
     Json = mochijson2:encode([
         {type, <<"published">>},
@@ -129,8 +129,7 @@ on_message_publish(Message, _Env) ->
         {topic, Topic},
         {payload, Payload},
         {qos, QoS},
-        {cluster_node, node()},
-        {ts, Timestamp}
+        {cluster_node, node()}
     ]),
 
     ekaf:produce_async_batched(<<"broker_message">>, list_to_binary(Json)),
