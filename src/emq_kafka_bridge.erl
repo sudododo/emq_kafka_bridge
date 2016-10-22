@@ -117,7 +117,7 @@ on_message_publish(Message, _Env) ->
     io:format("publish ~s~n", [emqttd_message:format(Message)]),
     io:format("Starting......"),	
     %% From = Message#mqtt_message.from,
-    io:format("From ~s~n", [Message#mqtt_message.qos]),
+    io:format("From ~s~n", [Message#mqtt_message.topic]),
     io:format("From ~s~n", [Message#mqtt_message.topic]),
     io:format("From ~s~n", [Message#mqtt_message.payload]),
     io:format("From ~s~n", [Message#mqtt_message.from]),
