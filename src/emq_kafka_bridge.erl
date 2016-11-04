@@ -46,7 +46,7 @@ on_client_connected(ConnAck, Client = #mqtt_client{client_id = ClientId}, _Env) 
         {ts, emqttd_time:now_to_secs()}
     ]),
     
-    ekaf:produce_async_batched(<<"broker_message">>, list_to_binary(Json)),
+    ekaf:produce_async_batched(<<"connection">>, list_to_binary(Json)),
 	
     {ok, Client}.
 
@@ -61,7 +61,7 @@ on_client_disconnected(Reason, _Client = #mqtt_client{client_id = ClientId}, _En
         {ts, emqttd_time:now_to_secs()}
     ]),
 
-    ekaf:produce_async_batched(<<"broker_message">>, list_to_binary(Json)),
+    ekaf:produce_async_batched(<<"connection">>, list_to_binary(Json)),
 	
     ok.
 
@@ -87,7 +87,7 @@ on_session_subscribed(ClientId, Username, {Topic, Opts}, _Env) ->
         {ts, emqttd_time:now_to_secs()}
     ]),
     
-    ekaf:produce_async_batched(<<"broker_message">>, list_to_binary(Json)),
+    ekaf:produce_async_batched(<<"test">>, list_to_binary(Json)),
 
     {ok, {Topic, Opts}}.
 
@@ -102,7 +102,7 @@ on_session_unsubscribed(ClientId, Username, {Topic, Opts}, _Env) ->
         {ts, emqttd_time:now_to_secs()}
     ]),
     
-    ekaf:produce_async_batched(<<"broker_message">>, list_to_binary(Json)),
+    ekaf:produce_async_batched(<<"test">>, list_to_binary(Json)),
 	
     ok.
 
@@ -126,7 +126,7 @@ on_message_publish(Message, _Env) ->
         {ts, Message#mqtt_message.timestamp}
     ]),
 
-    ekaf:produce_async_batched(<<"broker_message">>, list_to_binary(Json)),
+    ekaf:produce_async_batched(<<"chat">>, list_to_binary(Json)),
 	
     {ok, Message}.
 
@@ -151,10 +151,10 @@ ekaf_init(_Env) ->
     application:set_env(ekaf, ekaf_partition_strategy, strict_round_robin),
     %%application:set_env(ekaf, ekaf_partition_strategy, PartitionStrategy),
     %% Set broker url and port, like 
-    application:set_env(ekaf, ekaf_bootstrap_broker, {"13.92.135.32", 9092}),
+    application:set_env(ekaf, ekaf_bootstrap_broker, {"13.68.243.82", 9092}),
     %% application:set_env(ekaf, ekaf_bootstrap_broker, BootstrapBroker),
     %% Set topic
-    application:set_env(ekaf, ekaf_bootstrap_topics, <<"broker_message">>),
+    application:set_env(ekaf, ekaf_bootstrap_topics, <<"connection">>),
 
     %% {ok, _} = application:ensure_all_started(kafkamocker),
     %% {ok, _} = application:ensure_all_started(gproc),
@@ -162,7 +162,7 @@ ekaf_init(_Env) ->
     {ok, _} = application:ensure_all_started(ekaf),
 
    %% io:format("Init ekaf with ~p~n", [BootstrapBroker]).
-    io:format("Init ekaf with ~p~n", [{"13.92.135.32", 9092}]).
+    io:format("Init ekaf with ~p~n", [{"13.68.243.82", 9092}]).
 
 %% Called when the plugin application stop
 unload() ->
