@@ -5,6 +5,8 @@ PROJECT_VERSION = 2.0
 DEPS = ekaf
 dep_ekaf = git https://github.com/helpshift/ekaf master
 
+DEPS = eavro
+dep_eavro = git https://github.com/SIfoxDevTeam/eavro master
 
 BUILD_DEPS = emqttd
 dep_emqttd = git https://github.com/emqtt/emqttd master
