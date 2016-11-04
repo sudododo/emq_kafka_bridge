@@ -23,7 +23,7 @@
 
 %% Called when the plugin application start
 load(Env) ->
-	ekaf_init([Env]),
+    ekaf_init([Env]),
     emqttd:hook('client.connected', fun ?MODULE:on_client_connected/3, [Env]),
     emqttd:hook('client.disconnected', fun ?MODULE:on_client_disconnected/3, [Env]),
     emqttd:hook('client.subscribe', fun ?MODULE:on_client_subscribe/4, [Env]),
@@ -38,15 +38,18 @@ load(Env) ->
 
 on_client_connected(ConnAck, Client = #mqtt_client{client_id = ClientId}, _Env) ->
     io:format("client ~s connected, connack: ~w~n", [ClientId, ConnAck]),
-	
-	    Json = mochijson2:encode([
-        {type, <<"connected">>},
-        {client_id, ClientId},
-        {cluster_node, node()},
-        {ts, emqttd_time:now_to_secs()}
-    ]),
+
+    %%Json = mochijson2:encode([
+    %%    {type, <<"connected">>},
+    %%    {client_id, ClientId},
+    %%    {cluster_node, node()},
+    %%    {ts, emqttd_time:now_to_secs()}
+    %%]),
     
-    ekaf:produce_async_batched(<<"connection">>, list_to_binary(Json)),
+    Schema = eavro:read_schema("schema.avsc"),
+    AvroMsg = eavro:encode(Schema,[<<"connected">>, ClientId, node(), emqttd_time:now_to_secs()]),
+    
+    ekaf:produce_async_batched(<<"connection">>, list_to_binary(AvroMsg)),
 	
     {ok, Client}.
 
