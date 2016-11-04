@@ -48,7 +48,7 @@ on_client_connected(ConnAck, Client = #mqtt_client{client_id = ClientId}, _Env) 
     
     Schema = eavro:read_schema("schema.avsc"),
     AvroMsg = eavro:encode(Schema,[<<"connected">>, <<"client001">>, <<"node001">>, emqttd_time:now_to_secs()]),
-    MsgtoKfk = <<0, 1:32, AvroMsg/binary>>, 
+    MsgtoKfk = <<0, 2:32, AvroMsg/binary>>, 
     ekaf:produce_async_batched(<<"connection">>, MsgtoKfk),
 	
     {ok, Client}.
