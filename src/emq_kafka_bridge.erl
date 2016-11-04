@@ -87,7 +87,7 @@ on_session_subscribed(ClientId, Username, {Topic, Opts}, _Env) ->
         {ts, emqttd_time:now_to_secs()}
     ]),
     
-    ekaf:produce_async_batched(<<"test">>, list_to_binary(Json)),
+    ekaf:produce_async_batched(<<"connection">>, list_to_binary(Json)),
 
     {ok, {Topic, Opts}}.
 
@@ -102,7 +102,7 @@ on_session_unsubscribed(ClientId, Username, {Topic, Opts}, _Env) ->
         {ts, emqttd_time:now_to_secs()}
     ]),
     
-    ekaf:produce_async_batched(<<"test">>, list_to_binary(Json)),
+    ekaf:produce_async_batched(<<"connection">>, list_to_binary(Json)),
 	
     ok.
 
@@ -126,7 +126,7 @@ on_message_publish(Message, _Env) ->
         {ts, Message#mqtt_message.timestamp}
     ]),
 
-    ekaf:produce_async_batched(<<"chat">>, list_to_binary(Json)),
+    ekaf:produce_async_batched(<<"connection">>, list_to_binary(Json)),
 	
     {ok, Message}.
 
